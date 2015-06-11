@@ -14,3 +14,6 @@ class UserViewSet(viewsets.ModelViewSet):
 class ReminderViewSet(viewsets.ModelViewSet):
     queryset = Reminder.objects.all()
     serializer_class = ReminderSerializer
+
+class Test(viewsets.ModelViewSet):
+    pass
