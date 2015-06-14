@@ -5,12 +5,12 @@ from .views import UserViewSet, Reminder, ReminderAll
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
-#router = routers.DefaultRouter()
-#router.register(r'users', UserViewSet)
-#router.register(r'reminder', Reminder)
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+#router.register(r'reminder', ReminderAll)
 
 urlpatterns = [
-    #url(r'^', include(router.urls)),
+    url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^reminder$', ReminderAll.as_view()),
