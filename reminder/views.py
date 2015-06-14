@@ -20,11 +20,6 @@ class ReminderAll(generics.ListAPIView):
     queryset = Reminder.objects.all()
     serializer_class = ReminderSerializer
     paginate_by = 15
-    # def get(self, request):
-    #     reminders = Reminder.objects.all()
-    #     print(reminders)
-    #     serializer = ReminderSerializer(reminders)
-    #     return Response(serializer.data)
 
 
 class Reminder(APIView):
