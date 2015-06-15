@@ -45,3 +45,7 @@ class Reminder(APIView):
 
 class Test(viewsets.ModelViewSet):
     pass
+
+
+def check():
+    pass
