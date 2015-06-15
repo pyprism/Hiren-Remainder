@@ -7,14 +7,13 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-#router.register(r'reminder', ReminderAll)
+#router.register(r'reminder', ReminderAll.as_view(), base_name='ReminderAll')
 
 urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
-    url(r'^reminder$', ReminderAll.as_view()),
+    url(r'^reminder/$', ReminderAll.as_view()),
     url(r'^reminder/(?P<pk>[0-9]+)/$', Reminder.as_view())
 ]
 
-#urlpatterns = format_suffix_patterns(urlpatterns)
