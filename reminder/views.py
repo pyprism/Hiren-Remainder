@@ -16,42 +16,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class ReminderAll(generics.DestroyAPIView, generics.ListAPIView):
+class ReminderViewSet(generics.DestroyAPIView, viewsets.ModelViewSet):
     queryset = Reminder.objects.all()
     serializer_class = ReminderSerializer
     paginate_by = 15
-
-
-class ReminderAllTest(generics.DestroyAPIView, viewsets.ModelViewSet):
-    queryset = Reminder.objects.all()
-    serializer_class = ReminderSerializer
-    paginate_by = 15
-
-
-class Reminder(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Reminder.objects.get(pk=pk)
-        except Reminder.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        reminder = self.get_object(pk)
-        serializer_class = ReminderSerializer(reminder)
-        return Response(serializer_class.data)
-
-    def put(self, request, pk, format=None):
-        reminder = self.get_object(pk)
-        serializer = ReminderSerializer(reminder, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class Test(viewsets.ModelViewSet):
-    pass
-
-
-def check():
-    pass
