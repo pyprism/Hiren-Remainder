@@ -2,7 +2,6 @@ __author__ = 'prism'
 from django.conf.urls import url, include
 from rest_framework import routers
 from .views import UserViewSet, ReminderViewSet
-from rest_framework.urlpatterns import format_suffix_patterns
 
 
 router = routers.DefaultRouter()
