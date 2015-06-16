@@ -16,7 +16,13 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class ReminderAll(generics.ListAPIView):
+class ReminderAll(generics.DestroyAPIView, generics.ListAPIView):
+    queryset = Reminder.objects.all()
+    serializer_class = ReminderSerializer
+    paginate_by = 15
+
+
+class ReminderAllTest(generics.DestroyAPIView, viewsets.ModelViewSet):
     queryset = Reminder.objects.all()
     serializer_class = ReminderSerializer
     paginate_by = 15
