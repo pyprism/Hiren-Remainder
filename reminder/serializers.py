@@ -14,7 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ReminderSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(read_only=True)
-    #active = serializers.NullBooleanField(default=True)
+    active = serializers.BooleanField(default=True)
+    reminder = serializers.DateTimeField()
 
     class Meta:
         model = Reminder
