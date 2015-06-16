@@ -1,13 +1,13 @@
 __author__ = 'prism'
 from django.conf.urls import url, include
 from rest_framework import routers
-from .views import UserViewSet, Reminder, ReminderAll
+from .views import UserViewSet, Reminder, ReminderAll, ReminderAllTest
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-#router.register(r'reminder', ReminderAll.as_view(), base_name='ReminderAll')
+router.register(r'reminder', ReminderAllTest)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
