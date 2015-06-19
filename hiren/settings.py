@@ -13,6 +13,7 @@ from __future__ import absolute_import
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from datetime import timedelta
+from celery.schedules import crontab
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -141,9 +142,10 @@ JWT_AUTH = {
 BROKER_URL = 'redis://localhost:6379/4'
 CELERYBEAT_SCHEDULE = {
     'run-every-5-seconds': {
-        'task': 'reminder.task.run',
-        'schedule': timedelta(seconds=5),
-        'args': (16, 16)
+        'task': 'reminder.task.runs',
+        # 'schedule': timedelta(seconds=5),
+        'schedule': crontab(),
+        # 'args': (1, 1)
     },
 }
 CELERY_ACCEPT_CONTENT = ['json']

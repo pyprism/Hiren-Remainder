@@ -15,6 +15,6 @@ app = Celery('hiren')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-@app.task()
-def my_background_process():
-    print('Nisha')
+# @app.task
+# def run():
+#     print('Nisha')
