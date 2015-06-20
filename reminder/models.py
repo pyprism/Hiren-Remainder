@@ -5,5 +5,6 @@ from django.db import models
 class Reminder(models.Model):
     text = models.TextField(blank=False, null=False)
     created = models.DateTimeField(auto_now_add=True)
-    reminder = models.DateTimeField()
+    reminder_date = models.DateField(null=False, blank=False)
+    reminder_time = models.TimeField(null=False, blank=False)
     active = models.BooleanField(default=True)
