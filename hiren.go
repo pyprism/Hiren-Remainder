@@ -5,10 +5,24 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/pyprism/Hiren-Reminder/controllers"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
 	e := echo.New()
+	// middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CSRF())
+	e.Use(middleware.Gzip())
+	e.Use(middleware.RequestID())
+	e.Use(middleware.BodyLimit("2M"))
+	e.Use(middleware.Secure())
+
+	// static files
+	e.Static("/static", "static")
+	e.File("/favicon.ico", "static/favicon.ico")
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World! d")
 	})
