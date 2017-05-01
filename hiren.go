@@ -1,7 +1,7 @@
 package main
 
 import (
-	"net/http"
+	//"net/http"
 
 	"github.com/labstack/echo"
 	"github.com/pyprism/Hiren-Reminder/controllers"
@@ -21,11 +21,9 @@ func main() {
 
 	// static files
 	e.Static("/static", "static")
-	e.File("/favicon.ico", "static/favicon.ico")
+	//e.File("/favicon.ico", "static/favicon.ico")
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World! d")
-	})
-	e.GET("/hello/", controllers.X)
+	e.GET("/", controllers.Index)
+	//e.GET("/hello/", controllers.X)
 	e.Logger.Fatal(e.Start(":8000"))
 }
