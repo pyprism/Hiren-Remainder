@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"github.com/labstack/echo"
-	"net/http"
+	//"net/http"
 )
 
-func X(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello")
+func Index(c echo.Context) error {
+	//return c.String(http.StatusOK, "Hello")
+	return c.File("templates/login.html")
 }
