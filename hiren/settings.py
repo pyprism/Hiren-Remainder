@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'reminder'
+    'reminder',
     'debug_toolbar',
     'compressor',
 ]
@@ -115,7 +115,7 @@ else:
             'PORT': '',
             'CONN_MAX_AGE': 600,
             }
-}
+    }
 
 
 # Password validation
