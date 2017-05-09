@@ -41,6 +41,8 @@ class Reminder(models.Model):
         ('De', 'Desktop'),
         ('Mo', 'Mobile'),
     )
+    title = models.CharField(max_length=200)
+    text = models.TextField()
     notification = ArrayField(models.CharField(choices=provider_type, max_length=2, default='Em'))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
