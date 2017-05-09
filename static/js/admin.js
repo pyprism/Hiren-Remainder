@@ -444,3 +444,12 @@ $(function () {
 
     setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
 });
+
+//Datetimepicker plugin
+$(function () {
+    $('.datetimepicker').bootstrapMaterialDatePicker({
+        format: 'dddd DD MMMM YYYY - HH:mm',
+        clearButton: true,
+        weekStart: 1
+    });
+});
