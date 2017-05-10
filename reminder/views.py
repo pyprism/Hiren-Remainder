@@ -26,12 +26,12 @@ def index(request):
 
 
 @login_required
-def add(request):
+def create(request):
     if request.method == 'POST':
         reminder_form = ReminderForm(request.POST)
         if reminder_form.is_valid():
             form = reminder_form.save(commit=False)
-            user = User.objects.get(username=request.user.username)
+            user = User.objects.get_object_or_404(username=request.user.username)
             form.user = user
             form.save()
             messages.info(request, 'New Reminder Added')
@@ -41,3 +41,20 @@ def add(request):
             logger.info(reminder_form.errors)
         return redirect('create')
     return render(request, 'add.html', {'title': 'Add New Reminder'})
+
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.info(request, 'Profile Updated')
+        else:
+            logger = logging.getLogger(__name__)
+            messages.error(request, profile_form.errors)
+            logger.info(profile_form.errors)
+        return redirect('profile')
+    else:
+        user = User.objects.get_object_or_404(username=request.user.username)
+        return render(request, 'profile.html', {'title': 'Profile Information', 'user': user})
