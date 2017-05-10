@@ -448,7 +448,7 @@ $(function () {
 //Datetimepicker plugin
 $(function () {
     $('.datetimepicker').bootstrapMaterialDatePicker({
-        format: 'dddd DD MMMM YYYY - HH:mm',
+        format: 'YYYY-MM-DD HH:mm',
         clearButton: true,
         weekStart: 1
     });
