@@ -5,7 +5,7 @@ from .models import Profile, Reminder
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = "__all__"
+        exclude = ('user',)
 
 
 class ReminderForm(ModelForm):
