@@ -98,7 +98,7 @@
                 </h2>
             </div>
             <div class="body">
-                <form method="post" action="{% url 'create' %}" class="form-horizontal" id="form" enctype="multipart/form-data"> {% csrf_token %}
+                <form method="post" action="{% url 'create' %}" class="form-horizontal" > {% csrf_token %}
                     {% if messages %}
                     <div class="alert alert-warning" role="alert">
                         <ul class="messages">
@@ -153,17 +153,16 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" class="datetimepicker form-control" placeholder="Please choose date & time...">
+                                    <input type="text" name="date_time" class="datetimepicker form-control" placeholder="Please choose date & time...">
                                 </div>
                             </div>
                         </div>
 
                     </div>
 
-
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button type="button" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
                         </div>
                     </div>
                 </form>
