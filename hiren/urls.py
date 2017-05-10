@@ -20,7 +20,8 @@ from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^$', views.index, name='login'),
-    url(r'^create/', views.add, name='create'),
+    url(r'^create/', views.create, name='create'),
+    url(r'^profile/', views.profile, name='profile'),
     url(r'^logout/', logout, {'next_page': '/'}, name='logout'),
 ]
 
