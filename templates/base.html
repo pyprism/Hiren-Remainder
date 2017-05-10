@@ -77,10 +77,22 @@
         <!-- Menu -->
         <div class="menu">
             <ul class="list">
-                <li class="active">
+                <li>
                     <a href="/reminder/">
-                        <i class="material-icons">home</i>
-                        <span>Home</span>
+                        <i class="material-icons">list</i>
+                        <span>Reminders</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'create' %}">
+                        <i class="material-icons">input</i>
+                        <span>Add new reminder</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'profile' %}">
+                        <i class="material-icons">face</i>
+                        <span>Profile</span>
                     </a>
                 </li>
             </ul>
