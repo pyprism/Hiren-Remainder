@@ -5,6 +5,7 @@ from django.contrib import auth
 from .forms import ReminderForm, ProfileForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from .models import Profile, Reminder
 import logging
 
 
@@ -31,7 +32,7 @@ def create(request):
         reminder_form = ReminderForm(request.POST)
         if reminder_form.is_valid():
             form = reminder_form.save(commit=False)
-            user = User.objects.get_object_or_404(username=request.user.username)
+            user = get_object_or_404(User, username=request.user.username)
             form.user = user
             form.save()
             messages.info(request, 'New Reminder Added')
@@ -48,7 +49,10 @@ def profile(request):
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
-            profile_form.save()
+            profile = profile_form.save(commit=False)
+            user = get_object_or_404(User, username=request.user.username)
+            profile.user = user
+            profile.save()
             messages.info(request, 'Profile Updated')
         else:
             logger = logging.getLogger(__name__)
@@ -56,5 +60,6 @@ def profile(request):
             logger.info(profile_form.errors)
         return redirect('profile')
     else:
-        user = User.objects.get_object_or_404(username=request.user.username)
-        return render(request, 'profile.html', {'title': 'Profile Information', 'user': user})
+        user = get_object_or_404(User, username=request.user.username)
+        profile = Profile.objects.get(user=user)
+        return render(request, 'profile.html', {'title': 'Profile Information', 'profile': profile})
