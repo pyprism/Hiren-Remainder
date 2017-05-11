@@ -78,7 +78,7 @@
         <div class="menu">
             <ul class="list">
                 <li>
-                    <a href="/reminder/">
+                    <a href="{% url 'reminders' %}">
                         <i class="material-icons">list</i>
                         <span>Reminders</span>
                     </a>
@@ -105,12 +105,8 @@
 
 <section class="content">
     <div class="container-fluid">
-        <div class="block-header">
-            <h2>{{ block_header }}</h2>
-        </div>
         {% block content %}
         {% endblock %}
-    </div>
     </div>
 </section>
 {% compress js %}
