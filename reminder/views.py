@@ -6,6 +6,7 @@ from .forms import ReminderForm, ProfileForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .models import Profile, Reminder
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 
 
@@ -34,6 +35,7 @@ def create(request):
             form = reminder_form.save(commit=False)
             user = get_object_or_404(User, username=request.user.username)
             form.user = user
+            form.active = True
             form.save()
             messages.info(request, 'New Reminder Added')
         else:
@@ -63,3 +65,18 @@ def profile(request):
         user = get_object_or_404(User, username=request.user.username)
         profile = Profile.objects.get(user=user)
         return render(request, 'profile.html', {'title': 'Profile Information', 'profile': profile})
+
+
+@login_required
+def reminders(request):
+    reminders = Reminder.objects.order_by('-id')
+    paginator = Paginator(reminders, 8)
+    page = request.GET.get('page')
+    try:
+        reminder = paginator.page(page)
+    except PageNotAnInteger:
+        # If yummy is not an integer, deliver first page.
+        reminder = paginator.page(1)
+    except EmptyPage:
+        reminder = paginator.page(paginator.num_pages)
+    return render(request, 'reminders.html', {"reminders": reminder, 'title': 'All Reminders'})
