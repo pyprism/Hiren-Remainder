@@ -6,7 +6,7 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    Profile Information
+                    Twillo Information
                 </h2>
             </div>
             <div class="body">
@@ -22,50 +22,45 @@
                     {% endif %}
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Title</label>
+                            <label>Twillo SID</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="title" class="form-control" placeholder="Enter title">
+                                    <input type="text" value="{{ profile.twillo_sid|default_if_none:"" }}" name="twillo_sid" class="form-control" placeholder="Enter SID">
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Text</label>
+                            <label>Twillo Token</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="text" class="form-control" placeholder="Enter text">
+                                    <input type="text" value="{{profile.twillo_token|default_if_none:""}}" name="twillo_token" class="form-control" placeholder="Enter token">
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Notification Type</label>
+                            <label>Twillo Sender Number</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <select class="form-control show-tick" name="notification" multiple>
-                                        <option value="Em" >Email</option>
-                                        <option value="Sm" >SMS</option>
-                                        <option value="De" >Desktop</option>
-                                        <option value="Mo" >Mobile</option>
-                                    </select>
+                                    <input type="text" value="{{profile.twillo_from_no|default_if_none:""}}" name="twillo_from_no" class="form-control" placeholder="Enter sender number">
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Notification Date And Time</label>
+                            <label>Recipient Number</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" name="date_time" class="datetimepicker form-control" placeholder="Please choose date & time...">
+                                    <input type="text" value="{{profile.twillo_to_no|default_if_none:""}}" name="twillo_to_no" class="form-control" placeholder="Enter recipient number">
                                 </div>
                             </div>
                         </div>
@@ -74,7 +69,86 @@
 
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save Twillo Information</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Mailgun Information
+                </h2>
+            </div>
+            <div class="body">
+                <form method="post" action="{% url 'profile' %}" class="form-horizontal" > {% csrf_token %}
+                    {% if messages %}
+                    <div class="alert alert-warning" role="alert">
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    <div class="row clearfix">
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Mailgun API Url</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" value="{{profile.mailgun_api_url|default_if_none:""}}" name="mailgun_api_url" class="form-control" placeholder="Enter api url">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Mailgun API Key</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" value="{{profile.mailgun_api_key|default_if_none:""}}" name="mailgun_api_key" class="form-control" placeholder="Enter api key">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Mailgun Sender Email</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" value="{{profile.mailgun_from|default_if_none:""}}" name="mailgun_from" class="form-control" placeholder="Enter sender">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Recipient Email</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line">
+                                    <input type="text" value="{{profile.mailgun_to|default_if_none:""}}" name="mailgun_to" class="form-control" placeholder="Enter recipient email">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row clearfix">
+                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save Mailgun Information</button>
                         </div>
                     </div>
                 </form>
