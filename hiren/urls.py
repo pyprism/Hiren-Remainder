@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^$', views.index, name='login'),
     url(r'^create/', views.create, name='create'),
     url(r'^profile/', views.profile, name='profile'),
+    url(r'^reminders/', views.reminders, name='reminders'),
     url(r'^logout/', logout, {'next_page': '/'}, name='logout'),
 ]
 
