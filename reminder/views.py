@@ -21,7 +21,9 @@ def index(request):
             auth.login(request, user)
             return redirect('create')
         else:
-            messages.error(request, 'Username/Password is not valid!')
+            troll = "Username/Password is not valid! And your password must include " \
+                    "a gang sign,a haiku and the blood of a virgin"  # :D  :D  lol
+            messages.error(request, troll)
             return redirect('/')
     else:
         return render(request, 'login.html')
@@ -36,6 +38,7 @@ def create(request):
             user = get_object_or_404(User, username=request.user.username)
             form.user = user
             form.active = True
+            form.notification = request.POST.getlist('notification')
             form.save()
             messages.info(request, 'New Reminder Added')
         else:
@@ -80,3 +83,9 @@ def reminders(request):
     except EmptyPage:
         reminder = paginator.page(paginator.num_pages)
     return render(request, 'reminders.html', {"reminders": reminder, 'title': 'All Reminders'})
+
+
+@login_required
+def reminder(request, pk=None):
+    reminder = get_object_or_404(Reminder, pk=pk)
+    return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
