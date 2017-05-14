@@ -11,4 +11,4 @@ class ProfileForm(ModelForm):
 class ReminderForm(ModelForm):
     class Meta:
         model = Reminder
-        exclude = ('user', )
+        exclude = ('user', 'notification')
