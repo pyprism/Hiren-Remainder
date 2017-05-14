@@ -23,13 +23,13 @@
                         {% for reminder in reminders %}
                         <tr>
                             <td>{{ reminder.id }}</td>
-                            <td></td>
+                            <td><a href="{% url 'reminder' pk=reminder.id %}">{{ reminder.title }}</a></td>
                              {% if reminder.active %}
-                            <td> Yes </td>
+                            <td><a href=""> Yes </a></td>
                             {% else %}
-                            <td> No</td>
+                            <td><a href=""> No </a></td>
                             {% endif %}
-                            <td></td>
+                            <td>{{ reminder.date_time }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -50,8 +50,4 @@
         </div>
     </div>
 </div>
-
-
-
-
 {% endblock %}
