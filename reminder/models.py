@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.postgres.fields import ArrayField
 
 
 class Profile(models.Model):
@@ -31,18 +30,19 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
+class Provider(models.Model):
+    email = models.BooleanField(default=False)
+    sms = models.BooleanField(default=False)
+    desktop = models.BooleanField(default=False)
+    mobile = models.BooleanField(default=False)
+
+
 class Reminder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     date_time = models.DateTimeField()
-    provider_type = (
-        ('Em', 'Email'),
-        ('Sm', 'SMS'),
-        ('De', 'Desktop'),
-        ('Mo', 'Mobile'),
-    )
     title = models.CharField(max_length=200)
     text = models.TextField()
-    notification = ArrayField(models.CharField(choices=provider_type, max_length=2, default='Em'))
+    notification = models.ForeignKey(Provider, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
