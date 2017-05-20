@@ -6,6 +6,7 @@ from .forms import ReminderForm, ProfileForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .models import Profile, Reminder
+from .utils import contains
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 
@@ -55,7 +56,7 @@ def profile(request):
         profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            user = get_object_or_404(User, username=request.user.username)
+            user = get_object_or_404(User, username=request.user.username)  # request.user TODO
             profile.user = user
             profile.save()
             messages.info(request, 'Profile Updated')
@@ -88,4 +89,6 @@ def reminders(request):
 @login_required
 def reminder(request, pk=None):
     reminder = get_object_or_404(Reminder, pk=pk)
+    for i in reminder.notification:
+        contains(i, Reminder.provider_type)
     return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
