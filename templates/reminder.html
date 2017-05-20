@@ -38,7 +38,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.get_notification_display }}"  class="form-control" disabled> {{ reminder.get_notification_display }}
+                                    <input type="text" value="{{ reminder.notification }}"  class="form-control" disabled>  {{ reminder.get_notification_display }}
                                 </div>
                             </div>
                         </div>
@@ -51,6 +51,21 @@
                                 <div class="form-line disabled">
                                     <input type="text" value="{{ reminder.date_time}}" disabled class="form-control">
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                            <label>Active</label>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                            <div class="form-group">
+                                <div class="form-line disabled">
+                         {% if reminder.active %}
+                            <input type="text" value="Yes" disabled class="form-control">
+                            {% else %}
+                            <input type="text" value="No" disabled class="form-control">
+                            {% endif %}
+                                            </div>
                             </div>
                         </div>
 
@@ -80,7 +95,7 @@
 
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button type="button" class="btn btn-primary m-t-15 waves-effect">Edit</button>
+                            <button type="button" class="btn btn-lg m-t-15 waves-effect">Edit</button>
                         </div>
                     </div>
             </div>
