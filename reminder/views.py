@@ -114,6 +114,12 @@ def reminder(request, pk=None):
 
 @login_required
 def reminder_update(request, pk=None):
+    """
+    Handle reminder update
+    :param request: 
+    :param pk: 
+    :return: 
+    """
     if request.method == 'POST':
         reminder = get_object_or_404(Reminder, pk=pk, user=request.user)
         reminder_form = ReminderForm(request.POST, instance=reminder)
