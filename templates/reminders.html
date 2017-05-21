@@ -6,7 +6,7 @@
         <div class="card">
             <div class="header">
                 <h2>
-                    All Reminders
+                    {{ header }}
                 </h2>
             </div>
             <div class="body table-responsive">
@@ -25,9 +25,9 @@
                             <td>{{ reminder.id }}</td>
                             <td><a href="{% url 'reminder' pk=reminder.id %}">{{ reminder.title }}</a></td>
                              {% if reminder.active %}
-                            <td><a href=""> Active </a></td>
+                            <td><a href="{% url 'active' %}"> Active </a></td>
                             {% else %}
-                            <td><a href=""> Archived </a></td>
+                            <td><a href="{% url 'archives' %}"> Archived </a></td>
                             {% endif %}
                             <td>{{ reminder.date_time }}</td>
                         </tr>
