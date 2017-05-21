@@ -15,7 +15,7 @@
                     <tr>
                         <th>#</th>
                         <th>Title</th>
-                        <th>Active</th>
+                        <th>Status</th>
                         <th>Notification Date</th>
                     </tr>
                     </thead>
@@ -25,9 +25,9 @@
                             <td>{{ reminder.id }}</td>
                             <td><a href="{% url 'reminder' pk=reminder.id %}">{{ reminder.title }}</a></td>
                              {% if reminder.active %}
-                            <td><a href=""> Yes </a></td>
+                            <td><a href=""> Active </a></td>
                             {% else %}
-                            <td><a href=""> No </a></td>
+                            <td><a href=""> Archived </a></td>
                             {% endif %}
                             <td>{{ reminder.date_time }}</td>
                         </tr>
