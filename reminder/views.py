@@ -97,7 +97,8 @@ def reminders(request):
         reminder = paginator.page(1)
     except EmptyPage:
         reminder = paginator.page(paginator.num_pages)
-    return render(request, 'reminders.html', {"reminders": reminder, 'title': 'All Reminders'})
+    return render(request, 'reminders.html', {"reminders": reminder, 'title': 'All Reminders',
+                                              'header': 'All Reminders'})
 
 
 @login_required
@@ -138,4 +139,31 @@ def reminder_update(request, pk=None):
 
 @login_required
 def archived(request):
+    archived = Reminder.objects.filter(user=request.user, active=False)
+    paginator = Paginator(archived, 8)
+    page = request.GET.get('page')
+    try:
+        reminder = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        reminder = paginator.page(1)
+    except EmptyPage:
+        reminder = paginator.page(paginator.num_pages)
+    return render(request, 'reminders.html', {"reminders": reminder, 'title': 'Archived Reminders',
+                                              'header': 'All Archived Reminders'})
+
+
+@login_required
+def active(request):
     archived = Reminder.objects.filter(user=request.user, active=True)
+    paginator = Paginator(archived, 8)
+    page = request.GET.get('page')
+    try:
+        reminder = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        reminder = paginator.page(1)
+    except EmptyPage:
+        reminder = paginator.page(paginator.num_pages)
+    return render(request, 'reminders.html', {"reminders": reminder, 'title': 'Active Reminders',
+                                              'header': 'All Active Reminders'})
