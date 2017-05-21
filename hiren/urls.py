@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^reminder/(?P<pk>\d+)/$', views.reminder, name='reminder'),
     url(r'^reminder/(?P<pk>\d+)/update/', views.reminder_update, name='reminder_update'),
     url(r'^reminders/', views.reminders, name='reminders'),
+    url(r'^archives/', views.archived, name='archives'),
+    url(r'^active/', views.active, name='active'),
     url(r'^logout/', logout, {'next_page': '/'}, name='logout'),
 ]
 
