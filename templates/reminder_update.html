@@ -9,106 +9,91 @@
                     </h2>
                 </div>
                 <div class="body">
-                <form method="post" action="{% url 'profile' %}" class="form-horizontal" > {% csrf_token %}
-                    <div class="row clearfix">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Title</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.title|default_if_none:""}}" name="title" class="form-control">
+                    <form method="post" action="{% url 'reminder_update' pk=reminder.pk %}" class="form-horizontal" > {% csrf_token %}
+                        {% if messages %}
+                            <div class="alert alert-warning" role="alert">
+                                <ul class="messages">
+                                    {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <div class="row clearfix">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Title</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line disabled">
+                                        <input type="text" value="{{ reminder.title|default_if_none:""}}" name="title" class="form-control">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Text</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.text |default_if_none:""}}" name="text" class="form-control" >
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Text</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line disabled">
+                                        <input type="text" value="{{ reminder.text |default_if_none:""}}" name="text" class="form-control" >
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Notification Type</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="checkbox-inline">
-                                    <input type="checkbox" name="email" id="email" {% if reminder.email %} checked{% endif %} />
-                                    <label for="email">Email</label>
-                                    <input type="checkbox" name="sms" id="sms" {% if reminder.sms %} checked{% endif %}/>
-                                    <label for="sms">SMS</label>
-                                    <input type="checkbox" name="mobile" id="mobile" {% if reminder.mobile %} checked{% endif %} />
-                                    <label for="mobile">Mobile</label>
-                                    <input type="checkbox" name="desktop" id="desktop" {% if reminder.desktop %} checked{% endif %} />
-                                    <label for="desktop">Desktop</label>
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Notification Type</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="checkbox-inline">
+                                        <input type="checkbox" name="email" id="email" {% if reminder.email %} checked{% endif %} />
+                                        <label for="email">Email</label>
+                                        <input type="checkbox" name="sms" id="sms" {% if reminder.sms %} checked{% endif %}/>
+                                        <label for="sms">SMS</label>
+                                        <input type="checkbox" name="mobile" id="mobile" {% if reminder.mobile %} checked{% endif %} />
+                                        <label for="mobile">Mobile</label>
+                                        <input type="checkbox" name="desktop" id="desktop" {% if reminder.desktop %} checked{% endif %} />
+                                        <label for="desktop">Desktop</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Notification Date & Time</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.date_time}}" name="date_time" class="form-control">
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Notification Date & Time</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="form-line disabled">
+                                        <input type="text"  name="date_time" class="datetimepicker form-control">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Status</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="switch">
-                                    {% if reminder.active %}
-                                        <label>OFF<input type="checkbox" checked><span class="lever"></span>ON</label>
-                                    {% else %}
-                                        <label>OFF<input type="checkbox" ><span class="lever"></span>ON</label>
-                                    {% endif %}
+                            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                                <label>Status</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                <div class="form-group">
+                                    <div class="switch">
+                                        {% if reminder.active %}
+                                            <label>OFF<input type="checkbox" name="active" checked><span class="lever"></span>ON</label>
+                                        {% else %}
+                                            <label>OFF<input type="checkbox" name="active"><span class="lever"></span>ON</label>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Created At</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.created_at}}" disabled class="form-control" >
+                            <div class="row clearfix">
+                                <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                    <button type="submit" class="btn btn-lg m-t-15 waves-effect">
+                                        Save
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Last Updated At</label>
-                        </div>
-                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                            <div class="form-group">
-                                <div class="form-line disabled disabled">
-                                    <input type="text" value="{{ reminder.updated_at}}" disabled class="form-control" >
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row clearfix">
-                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <a href="#"><button type="button" class="btn btn-lg m-t-15 waves-effect">
-                                 Edit
-                            </button> </a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
             </div>
         </div>
