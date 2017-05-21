@@ -11,6 +11,11 @@ import logging
 
 
 def index(request):
+    """
+    Handle authentication
+    :param request: 
+    :return: 
+    """
     if request.user.is_authenticated:
         return redirect('create')
     if request.method == "POST":
@@ -31,12 +36,16 @@ def index(request):
 
 @login_required
 def create(request):
+    """
+    Create new reminder
+    :param request: 
+    :return: 
+    """
     if request.method == 'POST':
         reminder_form = ReminderForm(request.POST)
         if reminder_form.is_valid():
             form = reminder_form.save(commit=False)
-            user = request.user
-            form.user = user
+            form.user = request.user
             form.active = True
             form.save()
             messages.info(request, 'New Reminder Added')
@@ -50,12 +59,16 @@ def create(request):
 
 @login_required
 def profile(request):
+    """
+    Save API information
+    :param request: 
+    :return: 
+    """
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
-            user = get_object_or_404(User, username=request.user.username)  # request.user TODO
-            profile.user = user
+            profile.user = request.user
             profile.save()
             messages.info(request, 'Profile Updated')
         else:
@@ -64,20 +77,24 @@ def profile(request):
             logger.info(profile_form.errors)
         return redirect('profile')
     else:
-        user = get_object_or_404(User, username=request.user.username)
-        profile = Profile.objects.get(user=user)
+        profile = Profile.objects.get(user=request.user)
         return render(request, 'profile.html', {'title': 'Profile Information', 'profile': profile})
 
 
 @login_required
 def reminders(request):
+    """
+    Serve all reminders
+    :param request: 
+    :return: 
+    """
     reminders = Reminder.objects.order_by('-id')
     paginator = Paginator(reminders, 8)
     page = request.GET.get('page')
     try:
         reminder = paginator.page(page)
     except PageNotAnInteger:
-        # If yummy is not an integer, deliver first page.
+        # If page is not an integer, deliver first page.
         reminder = paginator.page(1)
     except EmptyPage:
         reminder = paginator.page(paginator.num_pages)
@@ -86,5 +103,11 @@ def reminders(request):
 
 @login_required
 def reminder(request, pk=None):
+    """
+    Serve single reminder
+    :param request: 
+    :param pk: 
+    :return: 
+    """
     reminder = get_object_or_404(Reminder, pk=pk)
     return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
