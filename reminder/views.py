@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib import auth
 from .forms import ReminderForm, ProfileForm
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .models import Profile, Reminder
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -111,3 +110,9 @@ def reminder(request, pk=None):
     """
     reminder = get_object_or_404(Reminder, pk=pk)
     return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
+
+
+@login_required
+def reminder_update(request, pk=None):
+    reminder = get_object_or_404(Reminder, pk=pk)
+    return render(request, 'reminder_update.html', {'reminder': reminder, 'title': 'Update Reminder'})
