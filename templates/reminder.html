@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row clearfix">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="card">
-            <div class="header">
-                <h2>
-                    Reminder Details
-                </h2>
-            </div>
-            <div class="body">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        Reminder Details
+                    </h2>
+                </div>
+                <div class="body">
                     <div class="row clearfix">
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                             <label>Title</label>
@@ -37,8 +37,15 @@
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
-                                <div class="form-line disabled">
-                                    <input type="text" value="{{ reminder.notification }}"  class="form-control" disabled>  {{ reminder.get_notification_display }}
+                                <div class="checkbox-inline">
+                                    <input type="checkbox" name="email" id="email" checked {% if email %} checked="checked"{% endif %} disabled/>
+                                    <label for="email">Email</label>
+                                    <input type="checkbox" name="sms" id="sms" {% if sms %} checked="checked" {% endif %} disabled/>
+                                    <label for="sms">SMS</label>
+                                    <input type="checkbox" name="mobile" id="mobile" {% if mobile %} checked="checked" {% endif %} disabled/>
+                                    <label for="mobile">Mobile</label>
+                                    <input type="checkbox" name="desktop" id="desktop" {% if desktop %} checked="checked" {% endif %} disabled/>
+                                    <label for="desktop">Desktop</label>
                                 </div>
                             </div>
                         </div>
@@ -55,17 +62,17 @@
                         </div>
 
                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                            <label>Active</label>
+                            <label>Status</label>
                         </div>
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line disabled">
-                         {% if reminder.active %}
-                            <input type="text" value="Yes" disabled class="form-control">
-                            {% else %}
-                            <input type="text" value="No" disabled class="form-control">
-                            {% endif %}
-                                            </div>
+                                    {% if reminder.active %}
+                                        <input type="text" value="Active" disabled class="form-control">
+                                    {% else %}
+                                        <input type="text" value="Archived" disabled class="form-control">
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
 
@@ -95,11 +102,13 @@
 
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <button type="button" class="btn btn-lg m-t-15 waves-effect">Edit</button>
+                            <a href="#"><button type="button" class="btn btn-lg m-t-15 waves-effect">
+                                 Edit
+                            </button> </a>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
