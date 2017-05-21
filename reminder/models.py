@@ -30,19 +30,15 @@ def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
 
-class Provider(models.Model):
-    email = models.BooleanField(default=False)
-    sms = models.BooleanField(default=False)
-    desktop = models.BooleanField(default=False)
-    mobile = models.BooleanField(default=False)
-
-
 class Reminder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     date_time = models.DateTimeField()
     title = models.CharField(max_length=200)
     text = models.TextField()
-    notification = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    email = models.BooleanField(default=False)
+    sms = models.BooleanField(default=False)
+    desktop = models.BooleanField(default=False)
+    mobile = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
