@@ -38,13 +38,13 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="checkbox-inline">
-                                    <input type="checkbox" name="email" id="email" checked {% if email %} checked="checked"{% endif %} disabled/>
+                                    <input type="checkbox" name="email" id="email" {% if reminder.email %} checked{% endif %} disabled/>
                                     <label for="email">Email</label>
-                                    <input type="checkbox" name="sms" id="sms" {% if sms %} checked="checked" {% endif %} disabled/>
+                                    <input type="checkbox" name="sms" id="sms" {% if reminder.sms %} checked {% endif %} disabled/>
                                     <label for="sms">SMS</label>
-                                    <input type="checkbox" name="mobile" id="mobile" {% if mobile %} checked="checked" {% endif %} disabled/>
+                                    <input type="checkbox" name="mobile" id="mobile" {% if reminder.mobile %} checked {% endif %} disabled/>
                                     <label for="mobile">Mobile</label>
-                                    <input type="checkbox" name="desktop" id="desktop" {% if desktop %} checked="checked" {% endif %} disabled/>
+                                    <input type="checkbox" name="desktop" id="desktop" {% if reminder.desktop %} checked {% endif %} disabled/>
                                     <label for="desktop">Desktop</label>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
 
                     <div class="row clearfix">
                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                            <a href="#"><button type="button" class="btn btn-lg m-t-15 waves-effect">
+                            <a href="{% url 'reminder_update' pk=reminder.id %}"><button type="button" class="btn btn-lg m-t-15 waves-effect">
                                  Edit
                             </button> </a>
                         </div>
