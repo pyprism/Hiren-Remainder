@@ -6,7 +6,6 @@ from .forms import ReminderForm, ProfileForm
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from .models import Profile, Reminder
-from .utils import contains
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 
@@ -36,10 +35,9 @@ def create(request):
         reminder_form = ReminderForm(request.POST)
         if reminder_form.is_valid():
             form = reminder_form.save(commit=False)
-            user = get_object_or_404(User, username=request.user.username)
+            user = request.user
             form.user = user
             form.active = True
-            form.notification = request.POST.getlist('notification')
             form.save()
             messages.info(request, 'New Reminder Added')
         else:
@@ -89,6 +87,4 @@ def reminders(request):
 @login_required
 def reminder(request, pk=None):
     reminder = get_object_or_404(Reminder, pk=pk)
-    for i in reminder.notification:
-        contains(i, Reminder.provider_type)
     return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
