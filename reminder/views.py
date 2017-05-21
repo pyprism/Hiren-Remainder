@@ -134,3 +134,8 @@ def reminder_update(request, pk=None):
     else:
         reminder = get_object_or_404(Reminder, pk=pk, user=request.user)
         return render(request, 'reminder_update.html', {'reminder': reminder, 'title': 'Update Reminder'})
+
+
+@login_required
+def archived(request):
+    archived = Reminder.objects.filter(user=request.user, active=True)
