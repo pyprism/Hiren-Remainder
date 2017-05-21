@@ -139,6 +139,11 @@ def reminder_update(request, pk=None):
 
 @login_required
 def archived(request):
+    """
+    Serve all archived reminders
+    :param request: 
+    :return: 
+    """
     archived = Reminder.objects.filter(user=request.user, active=False)
     paginator = Paginator(archived, 8)
     page = request.GET.get('page')
@@ -155,6 +160,11 @@ def archived(request):
 
 @login_required
 def active(request):
+    """
+    Serve all active reminders
+    :param request: 
+    :return: 
+    """
     archived = Reminder.objects.filter(user=request.user, active=True)
     paginator = Paginator(archived, 8)
     page = request.GET.get('page')
