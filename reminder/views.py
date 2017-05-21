@@ -87,7 +87,7 @@ def reminders(request):
     :param request: 
     :return: 
     """
-    reminders = Reminder.objects.order_by('-id')
+    reminders = Reminder.objects.filter(user=request.user).order_by('-id')
     paginator = Paginator(reminders, 8)
     page = request.GET.get('page')
     try:
@@ -108,11 +108,23 @@ def reminder(request, pk=None):
     :param pk: 
     :return: 
     """
-    reminder = get_object_or_404(Reminder, pk=pk)
+    reminder = get_object_or_404(Reminder, pk=pk, user=request.user)
     return render(request, 'reminder.html', {'reminder': reminder, 'title': 'Reminder'})
 
 
 @login_required
 def reminder_update(request, pk=None):
-    reminder = get_object_or_404(Reminder, pk=pk)
-    return render(request, 'reminder_update.html', {'reminder': reminder, 'title': 'Update Reminder'})
+    if request.method == 'POST':
+        reminder = get_object_or_404(Reminder, pk=pk, user=request.user)
+        reminder_form = ReminderForm(request.POST, instance=reminder)
+        if reminder_form.is_valid():
+            reminder_form.save()
+            messages.info(request, 'Reminder Updated')
+        else:
+            logger = logging.getLogger(__name__)
+            messages.error(request, reminder_form.errors)
+            logger.info(reminder_form.errors)
+        return redirect('/reminder/' + pk + '/update/')
+    else:
+        reminder = get_object_or_404(Reminder, pk=pk, user=request.user)
+        return render(request, 'reminder_update.html', {'reminder': reminder, 'title': 'Update Reminder'})
