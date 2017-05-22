@@ -5,7 +5,11 @@ from django.contrib import auth
 from .forms import ReminderForm, ProfileForm
 from django.shortcuts import get_object_or_404
 from .models import Profile, Reminder
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
+from django.utils.timezone import datetime
+from django.utils import timezone
 import logging
 
 
@@ -64,7 +68,11 @@ def profile(request):
     :return: 
     """
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST)
+        profile_obj = Profile.objects.get(user=request.user)
+        if profile_obj.exists():   # only single profile per user
+            profile_form = ProfileForm(request.post, instance=profile_obj)
+        else:
+            profile_form = ProfileForm(request.POST)
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             profile.user = request.user
@@ -177,3 +185,18 @@ def active(request):
         reminder = paginator.page(paginator.num_pages)
     return render(request, 'reminders.html', {"reminders": reminder, 'title': 'Active Reminders',
                                               'header': 'All Active Reminders'})
+
+
+def job(request):
+    """
+    Handle cron task
+    :param request: 
+    :return: 
+    """
+    users = User.objects.all()
+    for user in users:
+        profile = Profile.objects.get(user=user)
+        print(profile.twillo_sid)
+        hiren = Reminder.objects.filter(user=user, active=True, date_time__lte=timezone.now())
+        print(hiren)
+    return HttpResponse("hiren :D")
