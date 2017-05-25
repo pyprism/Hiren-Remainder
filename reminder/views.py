@@ -69,7 +69,8 @@ def profile(request):
     """
     if request.method == 'POST':
         profile_obj = Profile.objects.get(user=request.user)
-        if profile_obj.exists():   # only single profile per user
+        print(profile_obj)
+        if profile_obj == 1:   # only single profile per user
             profile_form = ProfileForm(request.post, instance=profile_obj)
         else:
             profile_form = ProfileForm(request.POST)
