@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-import uuid
 
 
 class Profile(models.Model):
@@ -32,7 +31,6 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Reminder(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     date_time = models.DateTimeField()
