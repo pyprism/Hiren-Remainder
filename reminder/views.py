@@ -68,12 +68,14 @@ def profile(request):
     :return: 
     """
     if request.method == 'POST':
+        print("sasasasasass")
         profile_obj = Profile.objects.get(user=request.user)
-        print(profile_obj)
-        if profile_obj == 1:   # only single profile per user
+        if profile_obj.initialized:   # only single profile per user
             profile_form = ProfileForm(request.post, instance=profile_obj)
         else:
             profile_form = ProfileForm(request.POST)
+            #profile_obj.initialized = True
+            #profile_obj.save()
         if profile_form.is_valid():
             profile = profile_form.save(commit=False)
             profile.user = request.user
@@ -85,7 +87,11 @@ def profile(request):
             logger.info(profile_form.errors)
         return redirect('profile')
     else:
+        print(request.user)
         profile = Profile.objects.get(user=request.user)
+        print(profile)
+        if profile.DoesNotExist:
+            pass
         return render(request, 'profile.html', {'title': 'Profile Information', 'profile': profile})
 
 
