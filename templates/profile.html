@@ -27,7 +27,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{ profile.twillo_sid|default_if_none:"" }}" name="twillo_sid" class="form-control" placeholder="Enter SID">
+                                    <input type="text" value="{{ user.profile.twillo_sid|default_if_none:"" }}" name="twillo_sid" class="form-control" placeholder="Enter SID">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.twillo_token|default_if_none:""}}" name="twillo_token" class="form-control" placeholder="Enter token">
+                                    <input type="text" value="{{ user.profile.twillo_token|default_if_none:""}}" name="twillo_token" class="form-control" placeholder="Enter token">
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.twillo_from_no|default_if_none:""}}" name="twillo_from_no" class="form-control" placeholder="Enter sender number">
+                                    <input type="text" value="{{ user.profile.twillo_from_no|default_if_none:""}}" name="twillo_from_no" class="form-control" placeholder="Enter sender number">
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.twillo_to_no|default_if_none:""}}" name="twillo_to_no" class="form-control" placeholder="Enter recipient number">
+                                    <input type="text" value="{{ user.profile.twillo_to_no|default_if_none:""}}" name="twillo_to_no" class="form-control" placeholder="Enter recipient number">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.mailgun_api_url|default_if_none:""}}" name="mailgun_api_url" class="form-control" placeholder="Enter api url">
+                                    <input type="text" value="{{ user.profile.mailgun_api_url|default_if_none:""}}" name="mailgun_api_url" class="form-control" placeholder="Enter api url">
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.mailgun_api_key|default_if_none:""}}" name="mailgun_api_key" class="form-control" placeholder="Enter api key">
+                                    <input type="text" value="{{ user.profile.mailgun_api_key|default_if_none:""}}" name="mailgun_api_key" class="form-control" placeholder="Enter api key">
                                 </div>
                             </div>
                         </div>
@@ -127,7 +127,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.mailgun_from|default_if_none:""}}" name="mailgun_from" class="form-control" placeholder="Enter sender">
+                                    <input type="text" value="{{ user.profile.mailgun_from|default_if_none:""}}" name="mailgun_from" class="form-control" placeholder="Enter sender">
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                             <div class="form-group">
                                 <div class="form-line">
-                                    <input type="text" value="{{profile.mailgun_to|default_if_none:""}}" name="mailgun_to" class="form-control" placeholder="Enter recipient email">
+                                    <input type="text" value="{{ user.profile.mailgun_to|default_if_none:""}}" name="mailgun_to" class="form-control" placeholder="Enter recipient email">
                                 </div>
                             </div>
                         </div>
