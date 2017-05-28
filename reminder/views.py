@@ -68,18 +68,19 @@ def profile(request):
     :return: 
     """
     if request.method == 'POST':
-        print("sasasasasass")
-        profile_obj = Profile.objects.get(user=request.user)
+        user = User.objects.get(pk=request.user.id)
+        profile_obj = request.user.profile
         if profile_obj.initialized:   # only single profile per user
-            profile_form = ProfileForm(request.post, instance=profile_obj)
+            profile_form = ProfileForm(request.POST, instance=request.user.profile)
         else:
-            profile_form = ProfileForm(request.POST)
-            #profile_obj.initialized = True
-            #profile_obj.save()
+            print('new')
+            profile_form = ProfileForm(request.POST, instance=request.user.profile)
+            user.profile.initialized = True
+            user.save()
         if profile_form.is_valid():
-            profile = profile_form.save(commit=False)
-            profile.user = request.user
-            profile.save()
+            # user.profile = profile_form.save(commit=False)
+            # profile.user = request.user
+            profile_form.save()
             messages.info(request, 'Profile Updated')
         else:
             logger = logging.getLogger(__name__)
@@ -87,12 +88,8 @@ def profile(request):
             logger.info(profile_form.errors)
         return redirect('profile')
     else:
-        print(request.user)
-        profile = Profile.objects.get(user=request.user)
-        print(profile)
-        if profile.DoesNotExist:
-            pass
-        return render(request, 'profile.html', {'title': 'Profile Information', 'profile': profile})
+        user = User.objects.get(pk=request.user.id)
+        return render(request, 'profile.html', {'title': 'Profile Information', 'user': user})
 
 
 @login_required
