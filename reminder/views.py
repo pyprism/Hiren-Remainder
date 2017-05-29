@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.utils.timezone import datetime
 from django.utils import timezone
+from provider import mailgun
 import logging
 
 
@@ -189,8 +190,15 @@ def job(request):
     """
     users = User.objects.all()
     for user in users:
-        profile = Profile.objects.get(user=user)
-        print(profile.twillo_sid)
         hiren = Reminder.objects.filter(user=user, active=True, date_time__lte=timezone.now())
+        if hiren.exists():
+            profile = Profile.objects.get(user=user)
+            for reminder in hiren:
+                if reminder.email:
+                    mailgun.mail(profile.mailgun_api_url, profile.mailgun_api_key, profile.mailgun_from,
+                                 profile.mailgun_to, reminder.title, reminder.text)
+                elif reminder.sms:
+                    pass
+
         print(hiren)
     return HttpResponse("hiren :D")
