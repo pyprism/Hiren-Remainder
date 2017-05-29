@@ -19,7 +19,6 @@ def mail(url, key, sender, recipient, title, message):
     :param message: email body
     :return:
     """
-    logger = logging.getLogger(__name__)
     try:
         requests.post(url + '/messages', auth=('api', key),
                       data={
@@ -29,4 +28,5 @@ def mail(url, key, sender, recipient, title, message):
                           "text": message
                       })
     except Exception as e:
+        logger = logging.getLogger(__name__)
         logger.error(e)
