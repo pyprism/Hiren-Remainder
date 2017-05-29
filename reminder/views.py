@@ -68,20 +68,10 @@ def profile(request):
     :return: 
     """
     if request.method == 'POST':
-        user = User.objects.get(pk=request.user.id)
-        profile_obj = request.user.profile
-        if profile_obj.initialized:   # only single profile per user
-            profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        else:
-            print('new')
-            profile_form = ProfileForm(request.POST, instance=request.user.profile)
-            user.profile.initialized = True
-            user.save()
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if profile_form.is_valid():
-            # user.profile = profile_form.save(commit=False)
-            # profile.user = request.user
             profile_form.save()
-            messages.info(request, 'Profile Updated')
+            messages.info(request, 'Profile Information Updated')
         else:
             logger = logging.getLogger(__name__)
             messages.error(request, profile_form.errors)
