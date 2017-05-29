@@ -6,7 +6,6 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    initialized = models.BooleanField(default=False)
     twillo_sid = models.CharField(max_length=100, blank=True, null=True)
     twillo_token = models.CharField(max_length=100, blank=True, null=True)
     twillo_from_no = models.CharField(max_length=100, blank=True, null=True)
