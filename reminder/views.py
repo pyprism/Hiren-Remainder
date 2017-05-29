@@ -194,7 +194,7 @@ def job(request):
         if hiren.exists():
             profile = Profile.objects.get(user=user)
             for reminder in hiren:
-                if reminder.email:
+                if reminder.email:  # check if email notification is active or not
                     mailgun.mail(profile.mailgun_api_url, profile.mailgun_api_key, profile.mailgun_from,
                                  profile.mailgun_to, reminder.title, reminder.text)
                 elif reminder.sms:
