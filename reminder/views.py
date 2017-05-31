@@ -21,14 +21,14 @@ def index(request):
     :return: 
     """
     if request.user.is_authenticated:
-        return redirect('create')
+        return redirect('reminders')
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = auth.authenticate(username=username, password=password)
         if user:
             auth.login(request, user)
-            return redirect('create')
+            return redirect('reminders')
         else:
             troll = "Username/Password is not valid! And your password must include " \
                     "a gang sign,a haiku and the blood of a virgin"  # :D  :D  lol
