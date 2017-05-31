@@ -53,6 +53,11 @@ class LoginViewTest(TestCase):
         response = self.c.get('/')
         self.assertTemplateUsed(response, 'login.html')
 
+    def test_authenticated_user_redirect_to_the_app(self):
+        self.c.login(username='hiren', password='password')
+        response = self.c.get('/', follow=True)
+        self.assertRedirects(response, '/reminders/')
+
 
 class LogoutViewTest(TestCase):
     """
