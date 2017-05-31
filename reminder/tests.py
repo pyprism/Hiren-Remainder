@@ -67,3 +67,34 @@ class LogoutViewTest(TestCase):
         self.c.post('/', {'username': 'hiren', 'password': 'password'})
         respond = self.c.get('/logout/')
         self.assertRedirects(respond, '/')
+
+
+class CreateViewTest(TransactionTestCase):
+    """
+    Test for create view
+    """
+    reset_sequences = True
+
+    def setUp(self):
+        self.c = Client()
+        self.user = User.objects.create_user('hiren', 'a@b.com', 'bunny')
+
+    def test_login_create_resolves_to_create_view(self):
+        found = resolve('/create/')
+        self.assertEqual(found.func, views.create)
+
+    def test_view_returns_correct_template(self):
+        self.c.login(username='hiren', password='bunny')
+        response = self.c.get('/create/')
+        self.assertTemplateUsed(response, 'add.html')
+
+    @freeze_time("2012-01-14")
+    def test_form_works(self):
+        self.c.login(username='hiren', password='bunny')
+        response = self.c.post('/create/', {
+            'date_time': timezone.datetime.now(), 'title': 'hello',
+            'text': 'meow', 'email': True
+        }, follow=True)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.message, 'New Reminder Added')
+        self.assertRedirects(response, '/create/')
