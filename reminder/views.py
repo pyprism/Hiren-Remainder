@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.utils.timezone import datetime
 from django.utils import timezone
-from provider import mailgun
+from provider import mailgun, twillo
 import logging
 
 
@@ -198,7 +198,8 @@ def job(request):
                     mailgun.mail(profile.mailgun_api_url, profile.mailgun_api_key, profile.mailgun_from,
                                  profile.mailgun_to, reminder.title, reminder.text)
                 elif reminder.sms:
-                    pass
-
-        print(hiren)
+                    twillo.sms(profile.twillo_sid, profile.twillo_token, profile.twillo_to_no,
+                               profile.twillo_from_no, reminder.text)
+                reminder.active = False
+                reminder.save()
     return HttpResponse("hiren :D")
