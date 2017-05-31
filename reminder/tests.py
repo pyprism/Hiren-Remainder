@@ -52,3 +52,18 @@ class LoginViewTest(TestCase):
     def test_view_returns_correct_template(self):
         response = self.c.get('/')
         self.assertTemplateUsed(response, 'login.html')
+
+
+class LogoutViewTest(TestCase):
+    """
+    Test logout
+    """
+
+    def setUp(self):
+        User.objects.create_user('hiren', 'a@b.com', 'password')
+        self.c = Client()
+
+    def test_redirect_works(self):
+        self.c.post('/', {'username': 'hiren', 'password': 'password'})
+        respond = self.c.get('/logout/')
+        self.assertRedirects(respond, '/')
