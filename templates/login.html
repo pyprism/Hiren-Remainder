@@ -7,9 +7,32 @@
     <title>Hiren-Reminder: Login</title>
     {% load staticfiles %}
     <link rel="icon" href="{% static 'favicon.ico' %}">
+
+
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
+        _paq.push(["setCookieDomain", "*.reminder.pyprism.me"]);
+        _paq.push(["setDomains", ["*.reminder.pyprism.me"]]);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//bunny.pyprism.me/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '5']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <noscript><p><img src="//bunny.pyprism.me/piwik.php?idsite=5&rec=1" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
+
+
     {% load compress %}
     {% compress css %}
-    <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}" />
     {% endcompress %}
 </head>
 <body>
@@ -19,13 +42,13 @@
 </hgroup>
 <form action="{% url 'login' %}" method="post"> {% csrf_token %}
     {% if messages %}
-    <div class="alert alert-info" role="alert">
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+        <div class="alert alert-info" role="alert">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
     <div class="group">
         <input type="text" name="username" required><span class="highlight"></span><span class="bar"></span>
@@ -39,8 +62,8 @@
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>
     {% compress js %}
-    <script src="{% static '/js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static '/js/login.js' %}"></script>
+        <script src="{% static '/js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static '/js/login.js' %}"></script>
     {% endcompress %}
 </form>
 </body>
