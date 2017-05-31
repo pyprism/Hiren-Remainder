@@ -37,7 +37,7 @@ class LoginViewTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func, views.index)
 
-    def test_auth_works(self):
+    def test_auth(self):
         respond = self.c.post('/', {'username': 'hiren', 'password': 'password'})
         self.assertRedirects(respond, '/reminders/')
 
@@ -94,7 +94,7 @@ class CreateViewTest(TransactionTestCase):
         self.assertTemplateUsed(response, 'add.html')
 
     @freeze_time("2012-01-14")
-    def test_form_works(self):
+    def test_form(self):
         self.c.login(username='hiren', password='bunny')
         response = self.c.post('/create/', {
             'date_time': timezone.datetime.now(), 'title': 'hello',
@@ -105,6 +105,44 @@ class CreateViewTest(TransactionTestCase):
 
         self.assertRedirects(response, '/create/')
 
+        reminder = Reminder.objects.count()
+        self.assertEqual(reminder, 1)
+
     def test_redirect_for_unauthenticated_user_works(self):
         response = self.c.get('/create/')
         self.assertRedirects(response, '/?next=/create/')
+
+
+class ProfileViewTest(TransactionTestCase):
+    """
+    Test for profile view
+    """
+    reset_sequences = True
+
+    def setUp(self):
+        self.c = Client()
+        self.user = User.objects.create_user('hiren', 'a@b.com', 'bunny')
+
+    def test_login_create_resolves_to_create_view(self):
+        found = resolve('/profile/')
+        self.assertEqual(found.func, views.profile)
+
+    def test_view_returns_correct_template(self):
+        self.c.login(username='hiren', password='bunny')
+        response = self.c.get('/profile/')
+        self.assertTemplateUsed(response, 'profile.html')
+
+    @freeze_time("2012-01-14")
+    def test_form(self):
+        self.c.login(username='hiren', password='bunny')
+        response = self.c.post('/profile/', {
+            'twillo_sid': "blah blah"
+        }, follow=True)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.message, 'Profile Information Updated')
+
+        self.assertRedirects(response, '/profile/')
+
+    def test_redirect_for_unauthenticated_user_works(self):
+        response = self.c.get('/profile/')
+        self.assertRedirects(response, '/?next=/profile/')
