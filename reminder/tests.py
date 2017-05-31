@@ -102,4 +102,9 @@ class CreateViewTest(TransactionTestCase):
         }, follow=True)
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.message, 'New Reminder Added')
+
         self.assertRedirects(response, '/create/')
+
+    def test_redirect_for_unauthenticated_user_works(self):
+        response = self.c.get('/create/')
+        self.assertRedirects(response, '/?next=/create/')
