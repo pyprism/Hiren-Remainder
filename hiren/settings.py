@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'reminder',
     'debug_toolbar',
     'compressor',
+    'api',
+    'rest_framework.authtoken',
+    'silk'
 ]
 
 if DEBUG is False:
@@ -65,7 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
     # 'querycount.middleware.QueryCountMiddleware'
 ]
 
@@ -263,7 +267,7 @@ if not DEBUG:
 CACHEOPS_REDIS = {
     'host': 'localhost',  # redis-server is on same machine
     'port': 6379,         # default redis port
-    'db': 4,             # SELECT non-default redis database
+    'db': 5,             # SELECT non-default redis database
 }
 
 CACHEOPS = {
@@ -278,4 +282,25 @@ CACHEOPS = {
 
 QUERYCOUNT = {
     'DISPLAY_DUPLICATES': 5,
+}
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
 }
