@@ -17,9 +17,11 @@ from django.conf.urls import url, include
 from django.conf import settings
 from reminder import views
 from django.contrib.auth.views import logout
+from api import urls as api
 
 urlpatterns = [
     url(r'^$', views.index, name='login'),
+    url(r'^api/', include(api)),
     url(r'^create/', views.create, name='create'),
     url(r'^profile/', views.profile, name='profile'),
     url(r'^reminder/(?P<pk>\d+)/$', views.reminder, name='reminder'),
