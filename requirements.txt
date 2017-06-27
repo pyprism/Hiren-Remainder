@@ -38,6 +38,6 @@ requests==2.18.1
 rjsmin==1.0.12
 six==1.10.0
 sqlparse==0.2.3
-twilio==6.4.1
+twilio==6.4.2
 urllib3==1.21.1
 uWSGI==2.0.15
