@@ -31,17 +31,16 @@
     <noscript><p><img src="//bunny.pyprism.me/piwik.php?idsite=5&rec=1" style="border:0;" alt="" /></p></noscript>
     <!-- End Piwik Code -->
 
-
     {% load compress %}
     {% compress css %}
         <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/waves.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/animate.min.css' %}">
-        <link rel="stylesheet" href="{% static '/css/style.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/bootstrap-select.min.css' %}">
         <link rel="stylesheet" href="{% static '/css/bootstrap-material-datetimepicker.css' %}">
-        <link rel="stylesheet" href="{% static '/css/theme-indigo.min.css' %}">
     {% endcompress %}
+    <link rel="stylesheet" href="{% static '/css/style.min.css' %}">
+    <link rel="stylesheet" href="{% static '/css/theme-indigo.min.css' %}">
 </head>
 <body class="theme-indigo ls-closed">
 <!-- Page Loader -->
