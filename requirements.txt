@@ -24,7 +24,7 @@ psycopg2==2.7.1
 pycodestyle==2.3.1
 pycparser==2.17
 Pygments==2.2.0
-PyJWT==1.5.0
+PyJWT==1.5.2
 pyOpenSSL==17.1.0
 pyparsing==2.2.0
 PySocks==1.6.7
@@ -37,6 +37,6 @@ requests==2.18.1
 rjsmin==1.0.12
 six==1.10.0
 sqlparse==0.2.3
-twilio==6.4.1
+twilio==6.4.2
 urllib3==1.21.1
 uWSGI==2.0.15
