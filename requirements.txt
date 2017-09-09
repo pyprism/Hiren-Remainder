@@ -37,6 +37,6 @@ redis==2.10.6
 rjsmin==1.0.12
 six==1.10.0
 sqlparse==0.2.3
-twilio==6.6.1
+twilio==6.6.2
 urllib3==1.22
 uWSGI==2.0.15
