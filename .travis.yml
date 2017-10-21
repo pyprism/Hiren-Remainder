@@ -19,7 +19,6 @@ env:
 
 script:
   - python manage.py test
-  - coverage run --source=reminder manage.py test reminder
-  - coverage run --source=api manage.py test api
+  - coverage run manage.py test
 
 after_success: coveralls
