@@ -16,6 +16,10 @@ class TestToken(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('token' in response.json())
 
+    def test_error(self):
+        response = self.client.post('/api/token/', {'username': 'hiren', 'password': 'bad password'})
+        self.assertEqual(response.status_code, 401)
+        self.assertTrue('error' in response.json())
 
 
 
