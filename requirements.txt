@@ -29,8 +29,8 @@ pyOpenSSL==17.3.0
 pyparsing==2.2.0
 PySocks==1.6.7
 python-dateutil==2.6.1
-pytz==2017.2
-raven==6.3.0
+pytz==2017.3
+raven==6.2.1
 rcssmin==1.0.6
 requests==2.18.4
 redis==2.10.6
