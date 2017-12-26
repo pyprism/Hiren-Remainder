@@ -50,3 +50,19 @@ class ReminderViewTest(TransactionTestCase):
                                            'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
                                            'mobile': False, 'created_at': '2012-05-12T00:00:00',
                                            'updated_at': '2012-05-12T00:00:00'})
+
+    @freeze_time("2012-05-12")
+    def test_reminder_update(self):
+        response = self.client.patch("/api/reminder/reminder/1/", data={"title": "new title"})
+        self.assertEqual(response.json(), {'id': 1, 'active': True, 'date_time': '2012-05-12T00:00:00', 'title': 'new title',
+                                           'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
+                                           'mobile': False, 'created_at': '2012-05-12T00:00:00',
+                                           'updated_at': '2012-05-12T00:00:00'})
+
+
+
+
+
+
+
+
