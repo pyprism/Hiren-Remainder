@@ -26,4 +26,15 @@ class TestToken(TestCase):
 class ReminderViewTest(TransactionTestCase):
     reset_sequences = True
 
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user('hiren', 'a@b.com', 'password')
+        self.client.force_authenticate(user=self.user)
 
+    def test_login_works(self):
+        response = self.client.get('/api/reminder/reminder/')
+        self.assertEqual(response.status_code, 200)
+
+        self.client.logout()
+        response = self.client.get('/api/reminder/reminder/')
+        self.assertEqual(response.status_code, 403)
