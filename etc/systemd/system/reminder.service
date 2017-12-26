@@ -2,7 +2,11 @@
 Description=uWSGI instance to serve Hiren-Reminder
 
 [Service]
-ExecStart=/bin/bash -c 'su prism; cd /home/prism/prod/Hiren-Reminder; source .env/bin/activate; uwsgi --enable-threads --ini hiren.ini'
+ExecStart=/bin/bash -c 'su prism; cd /home/prism/prod/Hiren-Reminder; source .env/bin/activate; uwsgi --memory-report --enable-threads --ini reminder.ini'
+
+ExecReload=/bin/bash -c 'su prism; cd /home/prism/prod/Hiren-Reminder; source .env/bin/activate; uwsgi --reload /run/reminder.pid'
+
+ExecStop=/bin/bash -c ''su prism; cd /home/prism/prod/Hiren-Reminder; source .env/bin/activate; uwsgi --stop /run/reminder.pid'
 
 [Install]
 WantedBy=multi-user.target
