@@ -37,15 +37,15 @@ class ReminderViewTest(TransactionTestCase):
         Reminder.objects.create(user=self.user, date_time=self.date, title="text", text="bugs bunny!")
 
     def test_login_works(self):
-        response = self.client.get('/api/reminder/reminder/')
+        response = self.client.get('/api/reminder/')
         self.assertEqual(response.status_code, 200)
 
         self.client.logout()
-        response = self.client.get('/api/reminder/reminder/')
+        response = self.client.get('/api/reminder/')
         self.assertEqual(response.status_code, 403)
 
     def test_correct_reminder_returns(self):
-        response = self.client.get("/api/reminder/reminder/1/")
+        response = self.client.get("/api/reminder/1/")
         self.assertEqual(response.json(), {'id': 1, 'active': True, 'date_time': '2012-05-12T00:00:00', 'title': 'text',
                                            'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
                                            'mobile': False, 'created_at': '2012-05-12T00:00:00',
@@ -53,11 +53,15 @@ class ReminderViewTest(TransactionTestCase):
 
     @freeze_time("2012-05-12")
     def test_reminder_update(self):
-        response = self.client.patch("/api/reminder/reminder/1/", data={"title": "new title"})
+        response = self.client.patch("/api/reminder/1/", data={"title": "new title"})
         self.assertEqual(response.json(), {'id': 1, 'active': True, 'date_time': '2012-05-12T00:00:00', 'title': 'new title',
                                            'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
                                            'mobile': False, 'created_at': '2012-05-12T00:00:00',
                                            'updated_at': '2012-05-12T00:00:00'})
+
+    @freeze_time("2012-05-12")
+    def test_reminder_create(self):
+        response = self.client.post("/api/reminder/1/")
 
 
 
