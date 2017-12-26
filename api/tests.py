@@ -59,11 +59,14 @@ class ReminderViewTest(TransactionTestCase):
                                            'mobile': False, 'created_at': '2012-05-12T00:00:00',
                                            'updated_at': '2012-05-12T00:00:00'})
 
-    # @freeze_time("2012-05-12")
-    # def test_reminder_create(self):
-    #     response = self.client.post("/api/reminder/", data=json.dumps({"date_time": "2012-05-12T00:00:00",
-    #                                 "title": "text", "text": "bugs bunny!"}))
-    #     print(response.json())
+    @freeze_time("2012-05-12")
+    def test_reminder_create(self):
+        response = self.client.post("/api/reminder/", data={"date_time": "2012-05-12T00:00:00",
+                                    "title": "text", "text": "bugs bunny!"})
+        self.assertEqual(response.json(), {'id': 2, 'active': False, 'date_time': '2012-05-12T00:00:00', 'title': 'text',
+                                           'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
+                                           'mobile': False, 'created_at': '2012-05-12T00:00:00',
+                                           'updated_at': '2012-05-12T00:00:00'})
 
 
 
