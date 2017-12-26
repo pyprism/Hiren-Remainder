@@ -3,7 +3,11 @@ from reminder.models import Reminder
 
 
 class ReminderSerializer(serializers.ModelSerializer):
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
     class Meta:
         model = Reminder
-        exclude = ("user",)
+        fields = "__all__"
 
