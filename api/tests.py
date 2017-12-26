@@ -68,6 +68,12 @@ class ReminderViewTest(TransactionTestCase):
                                            'mobile': False, 'created_at': '2012-05-12T00:00:00',
                                            'updated_at': '2012-05-12T00:00:00'})
 
+    def test_reminder_delete(self):
+        self.client.delete("/api/reminder/1/")
+        count = Reminder.objects.count()
+        self.assertEqual(count, 0)
+
+
 
 
 
