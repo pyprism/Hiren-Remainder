@@ -3,6 +3,8 @@ from django.shortcuts import reverse
 from rest_framework.test import APIRequestFactory, APIClient
 from freezegun import freeze_time
 from django.contrib.auth.models import User
+from reminder.models import Reminder
+from django.utils import timezone
 # Create your tests here.
 
 
@@ -26,10 +28,13 @@ class TestToken(TestCase):
 class ReminderViewTest(TransactionTestCase):
     reset_sequences = True
 
+    @freeze_time("2012-05-12")
     def setUp(self):
         self.client = APIClient()
+        self.date = timezone.now()
         self.user = User.objects.create_user('hiren', 'a@b.com', 'password')
         self.client.force_authenticate(user=self.user)
+        Reminder.objects.create(user=self.user, date_time=self.date, title="text", text="bugs bunny!")
 
     def test_login_works(self):
         response = self.client.get('/api/reminder/reminder/')
@@ -38,3 +43,10 @@ class ReminderViewTest(TransactionTestCase):
         self.client.logout()
         response = self.client.get('/api/reminder/reminder/')
         self.assertEqual(response.status_code, 403)
+
+    def test_correct_reminder_returns(self):
+        response = self.client.get("/api/reminder/reminder/1/")
+        self.assertEqual(response.json(), {'id': 1, 'active': True, 'date_time': '2012-05-12T00:00:00', 'title': 'text',
+                                           'text': 'bugs bunny!', 'email': False, 'sms': False, 'desktop': False,
+                                           'mobile': False, 'created_at': '2012-05-12T00:00:00',
+                                           'updated_at': '2012-05-12T00:00:00'})
