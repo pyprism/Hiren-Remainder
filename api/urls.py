@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'reminder', ReminderViewSet)
 
 urlpatterns = [
-    url(r'token/', views.login),
+    url(r'token/', views.login, name="token"),
     url(r'^reminder/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
