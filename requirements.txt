@@ -28,7 +28,7 @@ PyJWT==1.6.0
 pyOpenSSL==17.5.0
 pyparsing==2.2.0
 PySocks==1.6.8
-python-dateutil==2.6.1
+python-dateutil==2.7.0
 pytz==2018.3
 raven==6.6.0
 rcssmin==1.0.6
