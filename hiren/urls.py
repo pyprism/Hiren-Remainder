@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.conf import settings
 from reminder import views
-from django.contrib.auth.views import logout
 from api import urls as api
 
 urlpatterns = [
@@ -30,7 +29,7 @@ urlpatterns = [
     url(r'^archives/', views.archived, name='archives'),
     url(r'^active/', views.active, name='active'),
     url(r'^jobs/', views.job),
-    url(r'^logout/', logout, {'next_page': '/'}, name='logout'),
+    url(r'^logout/', views.logout, name='logout'),
 ]
 
 if settings.DEBUG:
