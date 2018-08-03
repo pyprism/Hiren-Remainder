@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.utils.timezone import datetime
 from django.utils import timezone
 from provider import mailgun, twillo
+from django.contrib.auth import logout as fuckoff
 import logging
 
 
@@ -203,3 +204,14 @@ def job(request):
                 reminder.active = False
                 reminder.save()
     return HttpResponse("hiren :D")
+
+
+def logout(request):
+    """
+    fuck off and logout
+    :param request:
+    :return:
+    """
+    fuckoff(request)
+    return redirect("login")
+
