@@ -26,7 +26,7 @@ pycparser==2.19
 Pygments==2.2.0
 PyJWT==1.6.4
 pyOpenSSL==18.0.0
-pyparsing==2.2.1
+pyparsing==2.2.2
 PySocks==1.6.8
 python-dateutil==2.7.3
 pytz==2018.5
