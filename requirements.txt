@@ -29,7 +29,7 @@ pyOpenSSL==18.0.0
 pyparsing==2.2.2
 PySocks==1.6.8
 python-dateutil==2.7.3
-pytz==2018.5
+pytz==2018.6
 raven==6.9.0
 rcssmin==1.0.6
 requests==2.19.1
