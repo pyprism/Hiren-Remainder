@@ -1,7 +1,7 @@
 appdirs==1.4.3
 asn1crypto==0.24.0
 autopep8==1.4.3
-certifi==2018.10.15
+certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
 contextlib2==0.5.5
