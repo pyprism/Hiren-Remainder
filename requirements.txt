@@ -16,7 +16,7 @@ django-querycount==0.7.0
 djangorestframework==3.9.0
 freezegun==0.3.11
 funcy==1.11
-idna==2.7
+idna==2.8
 Jinja2==2.10
 MarkupSafe==1.1.0
 packaging==18.0
