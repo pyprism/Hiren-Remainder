@@ -32,7 +32,7 @@ python-dateutil==2.7.5
 pytz==2018.7
 raven==6.9.0
 rcssmin==1.0.6
-requests==2.20.1
+requests==2.21.0
 redis==3.0.1
 rjsmin==1.0.12
 six==1.11.0
