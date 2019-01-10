@@ -33,7 +33,7 @@ pytz==2018.7
 raven==6.9.0
 rcssmin==1.0.6
 requests==2.20.1
-redis==2.10.6
+redis==3.0.1
 rjsmin==1.0.12
 six==1.11.0
 sqlparse==0.2.4
