@@ -1,6 +1,6 @@
 appdirs==1.4.3
 asn1crypto==0.24.0
-autopep8==1.4.3
+autopep8==1.4.4
 certifi==2019.3.9
 cffi==1.12.2
 chardet==3.0.4
