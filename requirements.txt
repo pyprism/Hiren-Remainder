@@ -6,7 +6,7 @@ cffi==1.12.3
 chardet==3.0.4
 contextlib2==0.5.5
 cryptography==2.7
-Django==2.2.2
+Django==2.2.3
 django-appconf==1.0.3
 django-cacheops==4.1
 django-compressor==2.3
