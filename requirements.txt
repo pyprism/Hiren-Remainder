@@ -17,7 +17,7 @@ djangorestframework==3.10.3
 freezegun==0.3.12
 funcy==1.12
 idna==2.8
-Jinja2==2.10.1
+Jinja2==2.11.0
 MarkupSafe==1.1.1
 packaging==19.2
 psycopg2==2.8.4
